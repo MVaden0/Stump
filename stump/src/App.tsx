@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <div className='codeBlockContainer'>
         <CodeBlock
-          text={"adsf"}
+          content={"adsf"}
           fileName={'test.tsx'}
         />
       </div>

@@ -12,7 +12,19 @@
 
 .stumpFileNameClass {
     padding: .5rem;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     width: calc(100% - 1rem);
     border-bottom: 1px solid #85808d;
+}
+
+.stumpContentClass {
+    padding: .5rem;
+    font-size: 1.25rem;
+}
+
+.stumpCopyContainerClass {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: red;
 }
