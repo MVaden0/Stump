@@ -6,7 +6,12 @@ import CodeBlock from './components/CodeBlock';
 function App() {
   return (
     <div className="App">
-      <CodeBlock/>
+      <div className='codeBlockContainer'>
+        <CodeBlock
+          text={"adsf"}
+          fileName={'test.tsx'}
+        />
+      </div>
     </div>
   );
 }

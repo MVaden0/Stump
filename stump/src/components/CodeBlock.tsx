@@ -8,6 +8,8 @@ interface ICodeBlockRequiredProps {
 
 interface ICodeBlockOptionalProps {
   containerClass: string;
+  fileNameClass: string;
+  fileName: string;
 }
 
 interface ICodeBlockProps
@@ -15,15 +17,27 @@ interface ICodeBlockProps
     ICodeBlockOptionalProps {}
 
 const defaultProps: ICodeBlockOptionalProps = {
-    containerClass: styles.stumpContainerClass,
+  containerClass: '',
+  fileNameClass: '',
+  fileName: ''
+}
+
+const FileName = (fileName: string, className: string) => {
+  return (
+    <div className={className}>
+      {fileName}
+    </div>
+  )
 }
 
 const CodeBlock = (props: ICodeBlockProps) => {
-    return (
-        <div className={props.containerClass}>
-            
-        </div>
-      )
+  return (
+    <div 
+      className={`${styles.stumpContainerClass} ${props.containerClass}`}
+    >
+      {props.fileName ? FileName(props.fileName, `${styles.stumpFileNameClass} ${props.fileNameClass}`) : ''}
+    </div>
+  )
 }
 
 CodeBlock.defaultProps = defaultProps
