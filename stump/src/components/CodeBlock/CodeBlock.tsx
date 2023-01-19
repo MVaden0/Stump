@@ -1,6 +1,55 @@
 import React, { useState } from 'react';
 import styles from './CodeBlock.module.css';
 
+const jsParseMap = {
+  'delimeter': {
+    'symbol': [' ', '.', '{', '}'],
+    'color': '#fede5d'
+  },
+  'keyword': {
+    'symbol': ['self'],
+    'color': '#fede5d'
+  },
+}
+
+const parseContent = (content: string) => {
+  let parsedContent: JSX.Element[] = []
+
+  // parse through content until a delimeter is reached
+  let delimeterFound: boolean = false
+
+  let i: number = 0
+
+  while(!delimeterFound) {
+    if (jsParseMap.delimeter.symbol.includes(content.substring(i, i + 1))) {
+      let symbol = content.substring(0, i)
+      
+      if (jsParseMap.keyword.symbol.includes(symbol)) {
+        parsedContent.push(
+          <span style={{color: jsParseMap.keyword.color}}>{content.substring(0, i)}</span>
+        )
+      }
+
+      delimeterFound = true
+      
+    } else {
+      i += 1
+    }
+  }
+
+  return parsedContent
+}
+
+
+
+
+
+
+
+
+
+
+
 
 interface ICodeBlockRequiredProps {
   content: string;
@@ -24,7 +73,7 @@ const defaultProps: ICodeBlockOptionalProps = {
   fileName: ''
 }
 
-const FileName = (fileName: string, className: string) => {
+const fileName = (fileName: string, className: string) => {
   return (
     <div className={className}>
       {fileName}
@@ -51,10 +100,10 @@ const CodeBlock = (props: ICodeBlockProps) => {
     <div 
       className={`${styles.stumpContainerClass} ${props.containerClass}`}
     >
-      {props.fileName ? FileName(props.fileName, `${styles.stumpFileNameClass} ${props.fileNameClass}`) : ''}
+      {props.fileName ? fileName(props.fileName, `${styles.stumpFileNameClass} ${props.fileNameClass}`) : ''}
       <div className={styles.stumpContentWrapperClass}>
         <div className={`${styles.stumpContentClass} ${props.contentClass}`}>
-          {props.content}
+          {parseContent(props.content)}
         </div>
         <div className={styles.stumpCopyContainerClass}>
           <svg 
