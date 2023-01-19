@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { isPropertySignature } from 'typescript';
 import styles from './FileName.module.css';
 
+
 /**
  * Interface that defines the props for the FileName component.
  */
@@ -10,10 +11,11 @@ interface IFileName {
   className: string
 }
 
+
 /**
- * Conditionally renders a FileName compoent.
+ * Conditionally renders a FileName component.
  * @param props props for component
- * @returns the fileName component
+ * @returns the FileName component
  */
 const FileName = (props: IFileName) => {
   if (props.fileName) {

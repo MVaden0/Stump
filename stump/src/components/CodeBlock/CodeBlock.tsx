@@ -41,11 +41,19 @@ const defaultProps: ICodeBlockOptionalProps = {
 }
 
 
+/**
+ * Renders a CodeBlock component.
+ * @param props props for component
+ * @returns the CodeBlock component
+ */
 const CodeBlock = (props: ICodeBlockProps) => {
   const [copyButtonClicked, setCopyButtonClicked] = useState(false)
 
   let parser: Parser = new Parser({text: props.content, CFGConfig: jsParseCFG})
 
+  /**
+   * Manages clipboard and animation functionality of copy button.
+   */
   const copyButtonOnClick = () => {
     navigator.clipboard.writeText(props.content)
 
