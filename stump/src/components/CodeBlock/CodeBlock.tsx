@@ -50,7 +50,7 @@ const CodeBlock = (props: ICodeBlockProps) => {
   const [copyButtonClicked, setCopyButtonClicked] = useState(false)
 
   let parser: Parser = new Parser({text: props.content, CFGConfig: jsParseCFG})
-  console.log(JSON.stringify(parser.alphabet))
+  console.log(JSON.stringify(parser.parsedContent))
 
   /**
    * Manages clipboard and animation functionality of copy button.

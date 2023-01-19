@@ -67,7 +67,8 @@ interface ICFGConfig {
 
 interface IParsedContent {
   start: number,
-  type: string,
+  end: number,
+  color: string,
   content: string
 }
 
@@ -95,6 +96,7 @@ class Parser {
     this.alphabet = []
 
     this.parseAlphabet()
+    this.parseContent()
   }
 
   /**
@@ -113,8 +115,34 @@ class Parser {
         }
       })
   
+      // color all known words
       alphabet.alphabet.forEach((word) => {
-        
+        let index: number = 0
+
+        while (index != -1) {
+          // get start and end indices for first instance of word
+          let startIndex: number = this.text.indexOf(word, index)
+          let endIndex: number
+
+          // check if word is found
+          if (startIndex == -1) {
+            index = -1
+          } else {
+            endIndex = startIndex + word.length
+
+            // make new parsed content
+            let parsedContent: IParsedContent = {
+              start: startIndex,
+              end: endIndex,
+              color: color,
+              content: word
+            }
+
+            this.parsedContent.push(parsedContent)
+
+            index = endIndex
+          }
+        }
       })
     })
   }
