@@ -77,6 +77,10 @@ class Parser {
   types: string[]
   alphabet: IAlphabet[]
 
+  /**
+   * Constructor for the Parser component.
+   * @param options 
+   */
   constructor(options: ParserOptions) {
     this.text = options.text
     this.CFGConfig = options.CFGConfig
@@ -146,19 +150,13 @@ class Parser {
     })
   }
 
+  /**
+   * Returns the elements to be rendered to the code block.
+   * @returns parsed array of colored elements
+   */
   render = () => {
     return this.parsedContent
   }
 }
 
 export default Parser
-
-/**
- * Foo takes any argument.
- * The return value is 'baz' in all cases.
- * @param {*} bar - Any argument
- * @param {string} [optionalArg] - An optional argument that is a string
- */
-function foo() {
-  return 'baz';
-}
