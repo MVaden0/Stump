@@ -87,6 +87,8 @@ class Parser {
     this.parsedContent = []
     this.types = []
     this.alphabet = []
+
+    this.parseAlphabet()
   }
 
   /**
@@ -131,7 +133,10 @@ class Parser {
 
           this.alphabet.forEach((alphabet) => {
             if (name === alphabet.name) {
-              alphabet.alphabet.push(word)
+              if (!alphabet.alphabet.includes(word.trim())) {
+                alphabet.alphabet.push(word.trim())
+              }
+              
               nameFound = true
             }
           })

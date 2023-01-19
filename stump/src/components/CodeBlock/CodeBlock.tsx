@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './CodeBlock.module.css'
 
 import FileName from '../FileName/FileName'
-import Parser, {jsParseCFG} from '../Parser/parser'
+import Parser, {jsParseCFG} from '../Parser/Parser'
 
 
 /**
@@ -50,6 +50,7 @@ const CodeBlock = (props: ICodeBlockProps) => {
   const [copyButtonClicked, setCopyButtonClicked] = useState(false)
 
   let parser: Parser = new Parser({text: props.content, CFGConfig: jsParseCFG})
+  console.log(JSON.stringify(parser.alphabet))
 
   /**
    * Manages clipboard and animation functionality of copy button.

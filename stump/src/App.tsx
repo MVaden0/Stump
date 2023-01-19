@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <div className='codeBlockContainer'>
         <CodeBlock
-          content={"self.something = 12;"}
+          content={"class MyClass {"}
           fileName={'test.tsx'}
         />
       </div>
