@@ -100,9 +100,9 @@ class Parser {
   }
 
   /**
-   * Parses text into content.
+   * Parses content that can be determined from the alphabet.
    */
-  parseContent = () => {
+  parseKnownContent = () => {
     this.alphabet.forEach((alphabet) => {
       let name: string = alphabet.name
 
@@ -145,6 +145,42 @@ class Parser {
         }
       })
     })
+  }
+
+  /**
+   * Used for BubbleSort purposes
+   * @param x first number to swap
+   * @param y second number to swap
+   */
+  swap = (x: number, y: number) => {
+    var temp = this.parsedContent[x]
+    this.parsedContent[x] = this.parsedContent[y]
+    this.parsedContent[y] = temp
+  }
+
+  /**
+   * Sorts content that can be parse from known alphabet.
+   */
+  sortParsedContent = () => {
+    let i: number = 0
+    let j: number = 0
+
+    for (i = 0; i < this.parsedContent.length - 1; i++) {
+        for (j = 0; j < this.parsedContent.length - i - 1; j++) {
+            if (this.parsedContent[j].start > this.parsedContent[j + 1].start) {
+              this.swap(j, j + 1)
+            }
+        }
+    }
+  }
+
+  /**
+   * Parses text into content.
+   */
+  parseContent = () => {
+    this.parseKnownContent()
+    this.sortParsedContent()
+
   }
 
   /**
