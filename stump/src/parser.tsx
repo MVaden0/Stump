@@ -85,13 +85,22 @@ class Parser {
     this.alphabet = []
   }
 
+  /**
+   * Parses the alphabet to be used in this Parser from both an alphabet given from the config 
+   * and an alphabet determined by the grammar.
+   */
   parseAlphabet = () => {
-    // parse initial alphabet from config
+    this.parseAlphabetFromConfig()
+    
+  }
+
+  /**
+   * Parses the alphabet to be used in this parser from an alphabet given by the config.
+   */
+  parseAlphabetFromConfig = () => {
     this.CFGConfig.alphabet.forEach((alphabet) => {
       this.alphabet.push(alphabet)
     })
-    
-    // parse alphabet from grammar
   }
 
   render = () => {
