@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
-import styles from './CodeBlock.module.css';
+import React, { useState } from 'react'
+import styles from './CodeBlock.module.css'
 
-import Parser, {jsParseCFG} from '../Parser/parser';
+import FileName from '../FileName/FileName'
+import Parser, {jsParseCFG} from '../Parser/parser'
 
+
+/**
+ * Interface that defines the required props for the CodeBlock component.
+ */
 interface ICodeBlockRequiredProps {
   content: string;
 }
 
+
+/**
+ * Interface that defines the optional props for the CodeBlock component.
+ */
 interface ICodeBlockOptionalProps {
   containerClass: string;
   fileNameClass: string;
@@ -14,10 +23,16 @@ interface ICodeBlockOptionalProps {
   fileName: string;
 }
 
+
+/**
+ * Interface that defines the required and optional props for the CodeBlock component.
+ */
 interface ICodeBlockProps
   extends ICodeBlockRequiredProps,
     ICodeBlockOptionalProps {}
 
+
+// default props for the CodeBlock component.
 const defaultProps: ICodeBlockOptionalProps = {
   containerClass: '',
   fileNameClass: '',
@@ -25,13 +40,6 @@ const defaultProps: ICodeBlockOptionalProps = {
   fileName: ''
 }
 
-const fileName = (fileName: string, className: string) => {
-  return (
-    <div className={className}>
-      {fileName}
-    </div>
-  )
-}
 
 const CodeBlock = (props: ICodeBlockProps) => {
   const [copyButtonClicked, setCopyButtonClicked] = useState(false)
@@ -54,7 +62,10 @@ const CodeBlock = (props: ICodeBlockProps) => {
     <div 
       className={`${styles.stumpContainerClass} ${props.containerClass}`}
     >
-      {props.fileName ? fileName(props.fileName, `${styles.stumpFileNameClass} ${props.fileNameClass}`) : ''}
+      <FileName
+        fileName={props.fileName}
+        className={`${styles.stumpFileNameClass} ${props.fileNameClass}`}
+      />
       <div className={styles.stumpContentWrapperClass}>
         <div className={`${styles.stumpContentClass} ${props.contentClass}`}>
           {parser.render()}
