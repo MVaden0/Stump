@@ -1,5 +1,5 @@
 <img 
-    src=".github/stump.svg"
+    src=".github/stump-logo.svg"
     alt="Stump Logo"
     style="height: 12vw; width: auto; float: left"
 />
