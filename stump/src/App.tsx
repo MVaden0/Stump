@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import CodeBlock from './components/CodeBlock';
+import CodeBlock from './components/CodeBlock/CodeBlock';
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CodeBlock.module.css';
 
 
@@ -33,15 +33,36 @@ const FileName = (fileName: string, className: string) => {
 }
 
 const CodeBlock = (props: ICodeBlockProps) => {
+  const [copyButtonClicked, setCopyButtonClicked] = useState(false)
+
+  const copyButtonOnClick = () => {
+    if (!copyButtonClicked) {
+      setCopyButtonClicked(true)
+      setTimeout(() => {
+        setCopyButtonClicked(false)
+      }, 1500)
+    }
+  }
+
   return (
     <div 
       className={`${styles.stumpContainerClass} ${props.containerClass}`}
     >
       {props.fileName ? FileName(props.fileName, `${styles.stumpFileNameClass} ${props.fileNameClass}`) : ''}
-      <div className={`${styles.stumpContentClass} ${props.contentClass}`}>
-        <div className={styles.stumpCopyContainerClass}>
+      <div className={styles.stumpContentWrapperClass}>
+        <div className={`${styles.stumpContentClass} ${props.contentClass}`}>
+          {props.content}
         </div>
-        {props.content}
+        <div className={styles.stumpCopyContainerClass}>
+          <svg 
+            onClick={copyButtonOnClick} 
+            className={`${styles.stumpCopyButton} ${copyButtonClicked ? styles.stumpCopyButtonAnimationSVG : ''}`} 
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+          >
+            <path className={`${styles.stumpCopyButtonPath1} ${copyButtonClicked ? styles.stumpCopyButtonAnimation1 : ''}`}/>
+            <path className={`${styles.stumpCopyButtonPath2} ${copyButtonClicked ? styles.stumpCopyButtonAnimation2 : ''}`}/>
+          </svg>
+        </div>
       </div>
     </div>
   )
