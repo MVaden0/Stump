@@ -1,4 +1,5 @@
 export const jsParseCFG: ICFGConfig = {
+  variableColor: '#ff7edb',
   symbols: [
     {
       name: 'delimeter',
@@ -7,10 +8,6 @@ export const jsParseCFG: ICFGConfig = {
     {
       name: 'keyword',
       color: '#fede5d'
-    },
-    {
-      name: 'variable',
-      color: '#ff7edb'
     },
     {
       name: 'type',
@@ -60,6 +57,7 @@ interface IGrammar {
 }
 
 interface ICFGConfig {
+  variableColor: string,
   symbols: ISymbol[],
   alphabet: IAlphabet[],
   grammar: IGrammar[]
@@ -119,13 +117,13 @@ class Parser {
       alphabet.alphabet.forEach((word) => {
         let index: number = 0
 
-        while (index != -1) {
+        while (index !== -1) {
           // get start and end indices for first instance of word
           let startIndex: number = this.text.indexOf(word, index)
           let endIndex: number
 
           // check if word is found
-          if (startIndex == -1) {
+          if (startIndex === -1) {
             index = -1
           } else {
             endIndex = startIndex + word.length
@@ -175,12 +173,60 @@ class Parser {
   }
 
   /**
+   * Inserts parsed content at a specified index.
+   */
+  insertAtIndex = (index: number, replacement: IParsedContent) => {
+    // shift last element
+    let lastIndex: number = this.parsedContent.length - 1
+
+    this.parsedContent.push(this.parsedContent[lastIndex])
+
+    // shift all other elements
+    for (let i = this.parsedContent.length - 2; i >= index; i++) {
+      this.parsedContent[i + 1] = this.parsedContent[i]
+    }
+
+    // replace content
+    this.parsedContent[index] = replacement
+  }
+
+  /**
+   * Parse all other content that cannot be determined from alphabet.
+   */
+  parseUnknownContent = () => {
+    // determine color
+    let color: string = this.CFGConfig.variableColor
+
+    for (let i = 0; i < this.parsedContent.length - 2; i++) {
+      if (this.parsedContent[i].end != this.parsedContent[i + 1].start) {
+        console.log('nope')
+        let start: number = this.parsedContent[i].end
+        let end: number = this.parsedContent[i + 1].start
+
+        let replacementContent: IParsedContent = {
+          start: start,
+          end: end,
+          color: color,
+          content: this.text.substring(start, end)
+        }
+
+        this.parsedContent.splice(i + 1, 0, replacementContent);
+      }
+    }
+
+    // check if unknown content is at beginning of text
+    // TODO
+    // check if unknown content is at end of text
+    // TODO
+  }
+
+  /**
    * Parses text into content.
    */
   parseContent = () => {
     this.parseKnownContent()
     this.sortParsedContent()
-
+    this.parseUnknownContent()
   }
 
   /**
@@ -213,7 +259,7 @@ class Parser {
         let prefixIndex: number = this.text.indexOf(phrase[0])
         let suffixIndex: number = this.text.indexOf(phrase[1])
 
-        if (prefixIndex != -1 && suffixIndex != -1) {
+        if (prefixIndex !== -1 && suffixIndex !== -1) {
           // regularize indices and extract new word
           prefixIndex = prefixIndex + phrase[0].length
           suffixIndex = suffixIndex
