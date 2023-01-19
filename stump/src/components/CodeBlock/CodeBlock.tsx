@@ -36,12 +36,17 @@ const CodeBlock = (props: ICodeBlockProps) => {
   const [copyButtonClicked, setCopyButtonClicked] = useState(false)
 
   const copyButtonOnClick = () => {
+    navigator.clipboard.writeText(props.content)
+    
+    // toggle copy button
     if (!copyButtonClicked) {
       setCopyButtonClicked(true)
       setTimeout(() => {
         setCopyButtonClicked(false)
       }, 1500)
     }
+
+    
   }
 
   return (
