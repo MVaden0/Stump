@@ -23,7 +23,7 @@ const jsParseCFG = {
     },
   ],
   'alphabet': [
-    
+
   ],
   'grammar': [
     []
@@ -40,7 +40,7 @@ const jsParseMap = {
     'color': '#fede5d'
   },
   'variable': {
-    'symbol': ['s'],
+    'symbol': [''],
     'color': '#ff7edb'
   },
 }
@@ -93,6 +93,7 @@ const parseContent = (content: string) => {
   }
 
   return parsedContent
+
 }
 
 
