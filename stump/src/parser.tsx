@@ -35,10 +35,10 @@ export const jsParseCFG: ICFGConfig = {
     {
       name: 'type',
       phrases: [
-        ['class ', 'type', ' {'],
-        ['class ', 'type', '{'],
-        ['interface ', 'type', ' {'],
-        ['interface ', 'type', '{']
+        ['class ', ' {'],
+        ['class ', '{'],
+        ['interface ', ' {'],
+        ['interface ', '{']
       ]
     }
   ]
@@ -91,7 +91,7 @@ class Parser {
    */
   parseAlphabet = () => {
     this.parseAlphabetFromConfig()
-    
+    this.parseAlphabetFromGrammar()
   }
 
   /**
@@ -100,6 +100,49 @@ class Parser {
   parseAlphabetFromConfig = () => {
     this.CFGConfig.alphabet.forEach((alphabet) => {
       this.alphabet.push(alphabet)
+    })
+  }
+
+  /**
+   * Parses the alphabet to be used in this parser from an alphabet determined by the grammar.
+   */
+  parseAlphabetFromGrammar = () => {
+    this.CFGConfig.grammar.forEach((grammar) => {
+      let name: string = grammar.name
+
+      grammar.phrases.forEach((phrase) => {
+        // check if prefix and suffix found
+        let prefixIndex: number = this.text.indexOf(phrase[0])
+        let suffixIndex: number = this.text.indexOf(phrase[1])
+
+        if (prefixIndex != -1 && suffixIndex != -1) {
+          // regularize indices and extract new word
+          prefixIndex = prefixIndex + phrase[0].length
+          suffixIndex = suffixIndex
+
+          let word: string = this.text.substring(prefixIndex, suffixIndex)
+
+          // check if name already exist in alphabet
+          let nameFound: boolean = false
+
+          this.alphabet.forEach((alphabet) => {
+            if (name === alphabet.name) {
+              alphabet.alphabet.push(word)
+              nameFound = true
+            }
+          })
+
+          // make new alphabet member if not
+          if (!nameFound) {
+            let newAlphabet: IAlphabet = {
+              name: name,
+              alphabet: [word]
+            }
+
+            this.alphabet.push(newAlphabet)
+          }
+        }
+      })
     })
   }
 
