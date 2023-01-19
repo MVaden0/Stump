@@ -65,6 +65,12 @@ interface ICFGConfig {
   grammar: IGrammar[]
 }
 
+interface IParsedContent {
+  start: number,
+  type: string,
+  content: string
+}
+
 interface ParserOptions {
   text: string,
   CFGConfig: ICFGConfig
@@ -73,7 +79,7 @@ interface ParserOptions {
 class Parser {
   text: string
   CFGConfig: ICFGConfig
-  parsedContent: JSX.Element[]
+  parsedContent: IParsedContent[]
   types: string[]
   alphabet: IAlphabet[]
 
@@ -89,6 +95,28 @@ class Parser {
     this.alphabet = []
 
     this.parseAlphabet()
+  }
+
+  /**
+   * Parses text into content.
+   */
+  parseContent = () => {
+    this.alphabet.forEach((alphabet) => {
+      let name: string = alphabet.name
+
+      // get color for content
+      let color: string
+
+      this.CFGConfig.symbols.forEach((symbol) => {
+        if (symbol.name === name) {
+          color = symbol.color
+        }
+      })
+  
+      alphabet.alphabet.forEach((word) => {
+        
+      })
+    })
   }
 
   /**
@@ -160,7 +188,8 @@ class Parser {
    * @returns parsed array of colored elements
    */
   render = () => {
-    return this.parsedContent
+    let DOMContent: JSX.Element[] = []
+    return DOMContent
   }
 }
 
