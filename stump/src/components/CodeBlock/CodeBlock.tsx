@@ -37,7 +37,7 @@ const CodeBlock = (props: ICodeBlockProps) => {
 
   const copyButtonOnClick = () => {
     navigator.clipboard.writeText(props.content)
-    
+
     // toggle copy button
     if (!copyButtonClicked) {
       setCopyButtonClicked(true)
@@ -45,8 +45,6 @@ const CodeBlock = (props: ICodeBlockProps) => {
         setCopyButtonClicked(false)
       }, 1500)
     }
-
-    
   }
 
   return (
