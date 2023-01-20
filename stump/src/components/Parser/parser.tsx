@@ -215,9 +215,33 @@ class Parser {
     }
 
     // check if unknown content is at beginning of text
-    // TODO
+    if (this.parsedContent[0].start > 0) {
+      let start: number = 0
+      let end: number = this.parsedContent[0].start
+
+      let replacementContent: IParsedContent = {
+        start: start,
+        end: end,
+        color: color,
+        content: this.text.substring(start, end)
+      }
+
+      this.parsedContent.splice(0, 0, replacementContent);
+    } 
     // check if unknown content is at end of text
-    // TODO
+    if (this.parsedContent[this.parsedContent.length - 1].end < this.text.length) {
+      let start: number = this.parsedContent[this.parsedContent.length - 1].end
+      let end: number = this.text.length
+
+      let replacementContent: IParsedContent = {
+        start: start,
+        end: end,
+        color: color,
+        content: this.text.substring(start, end)
+      }
+
+      this.parsedContent.splice(this.parsedContent.length - 1, 0, replacementContent);
+    } 
   }
 
   /**
