@@ -82,6 +82,7 @@ class Parser {
   text: string
   CFGConfig: ICFGConfig
   parsedContent: IParsedContent[]
+  parsedRows: IParsedContent[][]
   types: string[]
   alphabet: IAlphabet[]
 
@@ -93,6 +94,7 @@ class Parser {
     this.text = options.text
     this.CFGConfig = options.CFGConfig
     this.parsedContent = []
+    this.parsedRows = []
     this.types = []
     this.alphabet = []
 
@@ -319,6 +321,31 @@ class Parser {
         }
       })
     })
+  }
+
+  /**
+   * Parses content into rows based on newlines.
+   */
+  parseRows = () => {
+    // start on some index
+    // loop through parsed content until a newline is found
+    // if a newline isn't found, put nodes from index to end in an array
+    // if newline is found, then set index to index + 1 and repeat
+    let rows: IParsedContent[][] = []
+    let startIndex: number = 0
+    let index: number = 0
+
+    while (index < this.parsedContent.length) {
+      let newlineFound: boolean = this.parsedContent[index].content.includes('\n')
+
+      if (newlineFound) {
+        // TODO: newline found logic
+      } else {
+        if (index == this.parsedContent.length - 1) {
+          rows.push(this.parsedContent.splice(startIndex, this.parsedContent.length))
+        }
+      }
+    }
   }
 
   /**
