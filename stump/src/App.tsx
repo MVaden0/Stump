@@ -17,3 +17,8 @@ function App() {
 }
 
 export default App;
+
+interface IPerson {
+  name: string 
+  age: number 
+  }
