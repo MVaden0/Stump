@@ -100,6 +100,7 @@ class Parser {
 
     this.parseAlphabet()
     this.parseContent()
+    this.parseRows()
   }
 
   /**
@@ -178,24 +179,6 @@ class Parser {
   }
 
   /**
-   * Inserts parsed content at a specified index.
-   */
-  insertAtIndex = (index: number, replacement: IParsedContent) => {
-    // shift last element
-    let lastIndex: number = this.parsedContent.length - 1
-
-    this.parsedContent.push(this.parsedContent[lastIndex])
-
-    // shift all other elements
-    for (let i = this.parsedContent.length - 2; i >= index; i++) {
-      this.parsedContent[i + 1] = this.parsedContent[i]
-    }
-
-    // replace content
-    this.parsedContent[index] = replacement
-  }
-
-  /**
    * Parse all other content that cannot be determined from alphabet.
    */
   parseUnknownContent = () => {
@@ -213,8 +196,6 @@ class Parser {
           color: color,
           content: this.text.substring(start, end)
         }
-
-        console.log(this.text.substring(start, end))
 
         this.parsedContent.splice(i + 1, 0, replacementContent);
       }
@@ -247,7 +228,7 @@ class Parser {
       }
 
       this.parsedContent.splice(this.parsedContent.length, 0, replacementContent);
-    } 
+    }
   }
 
   /**
@@ -335,17 +316,34 @@ class Parser {
     let startIndex: number = 0
     let index: number = 0
 
-    while (index < this.parsedContent.length) {
-      let newlineFound: boolean = this.parsedContent[index].content.includes('\n')
+    for (let i = 0; i < this.parsedContent.length; i++) {
+      let newlineFound: boolean = this.parsedContent[i].content.includes('\n')
 
       if (newlineFound) {
-        // TODO: newline found logic
+        rows.push(this.parsedContent.slice(startIndex, i))
+        startIndex = i
+
       } else {
-        if (index == this.parsedContent.length - 1) {
-          rows.push(this.parsedContent.splice(startIndex, this.parsedContent.length))
+        if (i == this.parsedContent.length - 1) {
+          rows.push(this.parsedContent.slice(startIndex, this.parsedContent.length))
         }
       }
     }
+
+    this.parsedRows = rows
+    console.log(JSON.stringify(rows))
+  }
+
+  /**
+   * Renders a single row of words.
+   * @returns a the row of words
+   */
+  renderRow = (content: IParsedContent[]) => {
+    return content.map((content, key) => {
+      return (
+        <span key={key} className={styles.stumpSpanClass} style={{color: content.color}}>{content.content}</span>
+      )
+    })
   }
 
   /**
@@ -353,12 +351,17 @@ class Parser {
    * @returns parsed array of colored elements
    */
   render = () => {
-  // TODO: recognize newlines and render to separate rows in container
-    return this.parsedContent.map((content, key) => {
-      return (
-        <span key={key} className={styles.stumpSpanClass} style={{color: content.color}}>{content.content}</span>
-      )
-    })
+    return (
+      <ul className={styles.stumpListClass}>
+        {
+          this.parsedRows.map((content, key) => {
+            return (
+              <li key={key}>{this.renderRow(content)}</li>
+            )
+          })
+        }
+      </ul>
+    )
   }
 }
 

@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <div className='codeBlockContainer'>
         <CodeBlock
-          content={""}
+          content={"interface IPerson {\n name: string \n age: number \n }"}
           fileName={'test.tsx'}
         />
       </div>
