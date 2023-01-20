@@ -326,7 +326,6 @@ class Parser {
    * @returns parsed array of colored elements
    */
   render = () => {
-  // TODO: recognize newlines and render to separate rows in container
     return this.parsedContent.map((content, key) => {
       return (
         <span key={key} className={styles.stumpSpanClass} style={{color: content.color}}>{content.content}</span>
