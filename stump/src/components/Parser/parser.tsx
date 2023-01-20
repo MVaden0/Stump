@@ -1,3 +1,6 @@
+import React from 'react'
+import styles from './Parser.module.css'
+
 export const jsParseCFG: ICFGConfig = {
   variableColor: '#ff7edb',
   symbols: [
@@ -197,9 +200,8 @@ class Parser {
     // determine color
     let color: string = this.CFGConfig.variableColor
 
-    for (let i = 0; i < this.parsedContent.length - 2; i++) {
+    for (let i = 0; i < this.parsedContent.length - 1; i++) {
       if (this.parsedContent[i].end != this.parsedContent[i + 1].start) {
-        console.log('nope')
         let start: number = this.parsedContent[i].end
         let end: number = this.parsedContent[i + 1].start
 
@@ -209,6 +211,8 @@ class Parser {
           color: color,
           content: this.text.substring(start, end)
         }
+
+        console.log(this.text.substring(start, end))
 
         this.parsedContent.splice(i + 1, 0, replacementContent);
       }
@@ -240,7 +244,7 @@ class Parser {
         content: this.text.substring(start, end)
       }
 
-      this.parsedContent.splice(this.parsedContent.length - 1, 0, replacementContent);
+      this.parsedContent.splice(this.parsedContent.length, 0, replacementContent);
     } 
   }
 
@@ -322,8 +326,11 @@ class Parser {
    * @returns parsed array of colored elements
    */
   render = () => {
-    let DOMContent: JSX.Element[] = []
-    return DOMContent
+    return this.parsedContent.map((content, key) => {
+      return (
+        <span key={key} className={styles.stumpSpanClass} style={{color: content.color}}>{content.content}</span>
+      )
+    })
   }
 }
 
