@@ -101,6 +101,7 @@ class Parser {
     this.parseAlphabet()
     this.parseContent()
     this.parseRows()
+    this.parseTabs()
   }
 
   /**
@@ -332,6 +333,18 @@ class Parser {
 
     this.parsedRows = rows
     console.log(JSON.stringify(rows))
+  }
+
+  /**
+   * Parses all elements that have a tab in them.
+   */
+  parseTabs = () => {
+    for (let i = 0; i < this.parsedRows.length; i++) {
+      for (let j = 0; j < this.parsedRows[i].length; j++) {
+        let replacement: string = this.parsedRows[i][j].content.replace('\t', '\u00A0\u00A0\u00A0\u00A0')
+        this.parsedRows[i][j].content = replacement
+      }
+    }
   }
 
   /**
