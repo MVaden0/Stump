@@ -187,7 +187,7 @@ class Parser {
     let color: string = this.CFGConfig.variableColor
 
     for (let i = 0; i < this.parsedContent.length - 1; i++) {
-      if (this.parsedContent[i].end != this.parsedContent[i + 1].start) {
+      if (this.parsedContent[i].end !== this.parsedContent[i + 1].start) {
         let start: number = this.parsedContent[i].end
         let end: number = this.parsedContent[i + 1].start
 
@@ -272,9 +272,8 @@ class Parser {
         let suffixIndex: number = this.text.indexOf(phrase[1])
 
         if (prefixIndex !== -1 && suffixIndex !== -1) {
-          // regularize indices and extract new word
+          // regularize prefix index and extract new word
           prefixIndex = prefixIndex + phrase[0].length
-          suffixIndex = suffixIndex
 
           let word: string = this.text.substring(prefixIndex, suffixIndex)
 
@@ -315,7 +314,6 @@ class Parser {
     // if newline is found, then set index to index + 1 and repeat
     let rows: IParsedContent[][] = []
     let startIndex: number = 0
-    let index: number = 0
 
     for (let i = 0; i < this.parsedContent.length; i++) {
       let newlineFound: boolean = this.parsedContent[i].content.includes('\n')
@@ -325,7 +323,7 @@ class Parser {
         startIndex = i
 
       } else {
-        if (i == this.parsedContent.length - 1) {
+        if (i === this.parsedContent.length - 1) {
           rows.push(this.parsedContent.slice(startIndex, this.parsedContent.length))
         }
       }
