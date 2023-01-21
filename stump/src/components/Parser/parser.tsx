@@ -44,36 +44,36 @@ export const jsParseCFG: ICFGConfig = {
   ]
 }
 
-interface ISymbol {
+export interface ISymbol {
   name: string,
   color: string
 }
 
-interface IAlphabet {
+export interface IAlphabet {
   name: string,
   alphabet: string[]
 }
 
-interface IGrammar {
+export interface IGrammar {
   name: string,
   phrases: string[][]
 }
 
-interface ICFGConfig {
+export interface ICFGConfig {
   variableColor: string,
   symbols: ISymbol[],
   alphabet: IAlphabet[],
   grammar: IGrammar[]
 }
 
-interface IParsedContent {
+export interface IParsedContent {
   start: number,
   end: number,
   color: string,
   content: string
 }
 
-interface ParserOptions {
+export interface ParserOptions {
   text: string,
   CFGConfig: ICFGConfig
 }

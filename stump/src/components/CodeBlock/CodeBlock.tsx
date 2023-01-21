@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './CodeBlock.module.css'
 
 import FileName from '../FileName/FileName'
-import Parser, {jsParseCFG} from '../Parser/Parser'
+import Parser, {jsParseCFG, ICFGConfig} from '../Parser/Parser'
 
 
 /**
@@ -21,6 +21,7 @@ interface ICodeBlockOptionalProps {
   fileNameClass: string;
   contentClass: string,
   fileName: string;
+  CFGConfig: ICFGConfig
 }
 
 
@@ -37,7 +38,8 @@ const defaultProps: ICodeBlockOptionalProps = {
   containerClass: '',
   fileNameClass: '',
   contentClass: '',
-  fileName: ''
+  fileName: '',
+  CFGConfig: jsParseCFG
 }
 
 
@@ -49,7 +51,7 @@ const defaultProps: ICodeBlockOptionalProps = {
 const CodeBlock = (props: ICodeBlockProps) => {
   const [copyButtonClicked, setCopyButtonClicked] = useState(false)
 
-  let parser: Parser = new Parser({text: props.content, CFGConfig: jsParseCFG})
+  let parser: Parser = new Parser({text: props.content, CFGConfig: props.CFGConfig})
 
   /**
    * Manages clipboard and animation functionality of copy button.
