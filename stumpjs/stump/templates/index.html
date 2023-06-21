@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+
+    <section>
+      
+      <div class="stump">
+
+      </div>
+
+    </section>
+
+    <script>
+      const container = document.querySelector( 'stump__wrapper' )
+      
+      class Stump {
+        constructor( options ) {
+          this.containerSelector = options.containerSelector || 'stump'
+          this.containerClass = options.containerClass || 'stump__container'
+          this.titleBarClass = options.titleBarClass ||  'stump__title-bar'
+
+          this.title = options.title || ''
+
+          this.container = document.querySelector( `.${this.containerSelector}` )
+
+          this.container.classList.add( this.containerClass )
+
+          this.renderTitleBar()
+        }
+
+        renderTitleBar = () => {
+          // create and render title bar
+          const titleBar = document.createElement( 'div' )
+
+          titleBar.classList.add( this.titleBarClass )
+
+          const titleBarTitle = document.createElement( 'span' )
+          titleBarTitle.textContent = this.title
+
+          titleBar.appendChild( titleBarTitle )
+
+          // create and render title bar copy button
+          const titleBarCopyButton = document.createElement( 'button' )
+          titleBarCopyButton.classList.add( 'stump__title-bar__copy-button' )
+
+          const titleBarCopyIcon = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' )
+          titleBarCopyIcon.classList.add( 'stump__title-bar__copy-icon' )
+          titleBarCopyIcon.setAttribute( 'viewBox', '0 0 16 16' )
+
+          const titleBarCopyIconPath1 = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
+          titleBarCopyIconPath1.classList.add( 'path1' )
+
+          const titleBarCopyIconPath2 = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
+          titleBarCopyIconPath2.classList.add( 'path2' )
+
+          titleBarCopyIcon.appendChild( titleBarCopyIconPath1 )
+          titleBarCopyIcon.appendChild( titleBarCopyIconPath2 )
+
+          titleBarCopyButton.appendChild( titleBarCopyIcon )
+          titleBar.appendChild( titleBarCopyButton )
+
+          this.container.appendChild(titleBar)
+          
+        }
+      }
+
+      const a = new Stump( {
+        title: 'filename.js'
+      } )
+    </script>
+
+  </body>
+</html>

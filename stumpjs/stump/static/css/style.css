@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+:root {
+  --stump-white: rgb(255, 255, 255);
+  --stump-light-gray: rgb(216, 216, 216);
+  --stump-dark-gray: rgb(77, 77, 77);
+  --stump-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+body,
+html {
+  background-color: #f5fbff;
+  margin: 0;
+}
+
+section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stump__container {
+  background-color: var(--stump-white);
+  border-radius: 1rem;
+  box-shadow: var(--stump-box-shadow);
+  color: var(--stump-dark-gray);
+  font-family: 'Source Code Pro';
+  
+  width: 500px;
+  height: 600px;
+}
+
+.stump__title-bar {
+  border-bottom: 1px solid var(--stump-light-gray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  height: 2.5rem;
+}
+
+.stump__title-bar__copy-button {
+  background-color: transparent;
+  border: none;
+  height: 1.25rem;
+  width: 1.25rem;
+  padding: 0;
+  cursor: pointer;
+}
+
+.stump__title-bar__copy-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  fill: var(--stump-light-gray);
+}
+
+.stump__title-bar__copy-icon > .path1 {
+  d: path("M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z")
+}
+
+.stump__title-bar__copy-icon > .path2 {
+  d: path("M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z")
+}
