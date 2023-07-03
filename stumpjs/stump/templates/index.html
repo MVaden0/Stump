@@ -8,9 +8,7 @@
 
     <section>
       
-      <div class="stump">
-
-      </div>
+      <div class="stump"></div>
 
     </section>
 
@@ -31,46 +29,52 @@
 
           this.renderTitleBar()
         }
+        
+        createElement = (type, options) => {
+          const el = document.createElement( type )
+          el.classList.add( options.class )
+          el.textContent = options.text
+
+          return el
+        }
+
+        createElementSVG = (type, options) => {
+          const el = document.createElementNS( 'http://www.w3.org/2000/svg', type )
+          el.classList.add( options.class )
+
+          return el
+        }
 
         renderTitleBar = () => {
-          // create and render title bar
-          const titleBar = document.createElement( 'div' )
-
-          titleBar.classList.add( this.titleBarClass )
-
-          const titleBarTitle = document.createElement( 'span' )
-          titleBarTitle.textContent = this.title
-
+          const titleBar = this.createElement( 'div', { class: this.titleBarClass } )
+          const titleBarTitle = this.createElement( 'span', { text: this.title } )
+          
           titleBar.appendChild( titleBarTitle )
-
-          // create and render title bar copy button
-          const titleBarCopyButton = document.createElement( 'button' )
-          titleBarCopyButton.classList.add( 'stump__title-bar__copy-button' )
-
-          const titleBarCopyIcon = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' )
-          titleBarCopyIcon.classList.add( 'stump__title-bar__copy-icon' )
-          titleBarCopyIcon.setAttribute( 'viewBox', '0 0 16 16' )
-
-          const titleBarCopyIconPath1 = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
-          titleBarCopyIconPath1.classList.add( 'path1' )
-
-          const titleBarCopyIconPath2 = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
-          titleBarCopyIconPath2.classList.add( 'path2' )
-
-          titleBarCopyIcon.appendChild( titleBarCopyIconPath1 )
-          titleBarCopyIcon.appendChild( titleBarCopyIconPath2 )
-
-          titleBarCopyButton.appendChild( titleBarCopyIcon )
-          titleBar.appendChild( titleBarCopyButton )
+          titleBar.appendChild( this.renderCopyButton())
 
           this.container.appendChild(titleBar)
-          
+        }
+
+        renderCopyButton = () => {
+          const copyButton = this.createElement( 'button', { class: 'stump__title-bar__copy-button' } )
+          const copyIcon = this.createElementSVG( 'svg', { class: 'stump__title-bar__copy-icon' } )
+          copyIcon.setAttribute( 'viewBox', '0 0 16 16' )
+
+          const copyIconPath1 = this.createElementSVG( 'path', { class: 'path1' } )
+          const copyIconPath2 = this.createElementSVG( 'path', { class: 'path2' } )
+
+          copyIcon.appendChild( copyIconPath1 )
+          copyIcon.appendChild( copyIconPath2 )
+
+          copyButton.appendChild( copyIcon )
+
+          return copyButton
         }
       }
 
-      const a = new Stump( {
+      const a = new Stump({
         title: 'filename.js'
-      } )
+      })
     </script>
 
   </body>

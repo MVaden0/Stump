@@ -4,7 +4,7 @@
   --stump-white: rgb(255, 255, 255);
   --stump-light-gray: rgb(216, 216, 216);
   --stump-dark-gray: rgb(77, 77, 77);
-  --stump-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  --stump-box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;;
 }
 
 body,
